@@ -1,3 +1,4 @@
+import { log } from "console";
 import { User } from "../model/User.js";
 import { generateToken } from "./auth.js";
 import bcrypt from "bcryptjs";
@@ -12,15 +13,17 @@ export const handleRegistration = async (req, res) => {
       return res.status(400).json({ msg: "User already exists" });
     }
 
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(password, salt);
+    // console.log("Plain text password before hashing:", password);
+    const user = new User({ name, email, password });
+    // console.log("User instance created, password still plain text:", password);
 
-    const user = new User({ name, email, password: password });
     await user.save();
-    const token = await generateToken(user);
+    // console.log(
+    //   "User saved, password should now be hashed in the database.",
+    //   password
+    // );
 
-    res.status(201).send({ user, token });
-    // console.log("token", token);
+    res.status(201).send(`${user.name} is registered`);
   } catch (err) {
     console.error("Registration error:", err.message);
     res.status(500).send("Server error");

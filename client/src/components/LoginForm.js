@@ -27,8 +27,9 @@ const LoginForm = () => {
       );
       // localStorage.setItem("token", response.data.token);
 
-      console.log(response.data);
-      if (response.ok) {
+      console.log(response);
+      localStorage.setItem("token", response.data.token);
+      if (response.status === 200) {
         setFormData({
           email: "",
           password: "",

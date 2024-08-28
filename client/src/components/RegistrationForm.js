@@ -25,15 +25,12 @@ const RegisterForm = () => {
         "http://localhost:8000/api/auth/register",
         formData
       );
-      localStorage.setItem("token", response.data.token);
 
       setFormData(defaultForm);
       navigate("/login");
 
-      // Log the response data
       console.log(response.data);
     } catch (err) {
-      // Log the error response
       if (err.response) {
         console.error(err.response.data);
       } else {
