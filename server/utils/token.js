@@ -9,7 +9,7 @@ export const generateToken = (user) => {
   // Return a new promise
   return new Promise((resolve, reject) => {
     jwt.sign(payload, secret_key, { expiresIn: "10s" }, (err, token) => {
-      console.log("to", token);
+      // console.log("to", token);
 
       if (err) {
         console.error("JWT signing error:", err);

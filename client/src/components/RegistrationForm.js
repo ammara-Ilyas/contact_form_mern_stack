@@ -10,6 +10,8 @@ const RegisterForm = () => {
     password: "",
   };
   const [formData, setFormData] = useState(defaultForm);
+  const [verifyEmailLink, setVerifyEmailLink] = useState("");
+  const [htm, setHtml] = useState("");
 
   const { name, email, password } = formData;
 
@@ -27,9 +29,15 @@ const RegisterForm = () => {
       );
 
       setFormData(defaultForm);
-      navigate("/login");
+      // navigate("/login");
 
-      console.log(response.data);
+      console.log(response);
+      // Assuming the verification URL is included in the response as a simple string.
+      const verificationUrl = response.data.verificationUrl;
+      console.log("verurl", verificationUrl);
+      setHtml(response.data.html);
+      // Set the verification link to display
+      setVerifyEmailLink(verificationUrl);
     } catch (err) {
       if (err.response) {
         console.error(err.response.data);
@@ -84,6 +92,22 @@ const RegisterForm = () => {
       >
         Register
       </button>
+
+      {verifyEmailLink && (
+        <p className="mt-4 text-green-600">
+          Registration successful! Please verify your email by clicking{" "}
+          <a href={verifyEmailLink} className="text-indigo-600 underline">
+            here.
+          </a>
+        </p>
+      )}
+
+      {htmlContent && (
+        <div
+          className="mt-4"
+          dangerouslySetInnerHTML={{ __html: htmlContent }}
+        ></div>
+      )}
     </form>
   );
 };

@@ -2,7 +2,7 @@ import express from "express";
 import connectDB from "./db.js";
 import dotenv from "dotenv";
 import cors from "cors";
-import router from "../router/route.js";
+import router from "../routes/auth.js";
 const app = express();
 
 const corsOptions = {
